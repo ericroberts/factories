@@ -163,7 +163,7 @@ VALUES (?, ?, ?, ?, ?)  [
 class Estimator < ActiveRecord::Base
   has_many :customers
 
-  def advance
+  def projection
     customers.inject([0,0]) do |(min, max), customer|
       min += customer.revenue * customer.rate.min
       max += customer.revenue * customer.rate.max
@@ -218,9 +218,9 @@ RSpec.describe Estimator do
   subject { customer.estimator }
   let(:customer) { create :customer }
 
-  describe "#advance" do
-    it "should return the sum of the estimated min and max advances" do
-      expect(subject.advance).to eq [
+  describe "#projection" do
+    it "should return the sum of the estimated min and max projections" do
+      expect(subject.projection).to eq [
         customer.revenue * customer.rate.min,
         customer.revenue * customer.rate.max
       ]
@@ -249,9 +249,9 @@ RSpec.describe Estimator do
   subject { customer.estimator }
   let(:customer) { create :customer }
 
-  describe "#advance" do
-    it "should return the sum of the estimated min and max advances" do
-      expect(subject.advance).to eq [
+  describe "#projection" do
+    it "should return the sum of the estimated min and max projections" do
+      expect(subject.projection).to eq [
         customer.revenue * customer.rate.min,
         customer.revenue * customer.rate.max
       ]
@@ -266,7 +266,7 @@ end
 RSpec.describe Estimator do
   subject { Estimator.new }
 
-  describe "#advance" do
+  describe "#projection" do
     let(:customer) { double }
 
     before do
@@ -285,13 +285,13 @@ F
 
 Failures:
 
-  1) Estimator#advance should return the sum of the estimated min and max advances
-     Failure/Error: expect(subject.advance).to eq [
+  1) Estimator#projection should return the sum of the estimated min and max projections
+     Failure/Error: expect(subject.projection).to eq [
        Double received unexpected message :revenue with (no args)
-     # ./lib/estimator.rb:8:in `block in advance'
+     # ./lib/estimator.rb:8:in `block in projection'
      # ./lib/estimator.rb:7:in `each'
      # ./lib/estimator.rb:7:in `inject'
-     # ./lib/estimator.rb:7:in `advance'
+     # ./lib/estimator.rb:7:in `projection'
      # ./spec/estimator_spec.rb:17:in `block (3 levels) in <top (required)>'
 
 Finished in 0.01076 seconds (files took 0.38914 seconds to load)
@@ -304,7 +304,7 @@ Finished in 0.01076 seconds (files took 0.38914 seconds to load)
 RSpec.describe Estimator do
   subject { Estimator.new }
 
-  describe "#advance" do
+  describe "#projection" do
     let(:customer) { double }
 
     before do
@@ -323,28 +323,7 @@ end
 RSpec.describe Estimator do
   subject { Estimator.new }
 
-  describe "#advance" do
-    let(:customer) { double }
-    let(:rate) { double }
-
-    before do
-      allow(subject).to receive(:customers).and_return([customer])
-      allow(customer).to receive(:revenue).and_return(100)
-      allow(customer).to receive(:rate).and_return(rate)
-    end
-
-    [...]
-  end
-end
-```
-
----
-
-``` ruby
-RSpec.describe Estimator do
-  subject { Estimator.new }
-
-  describe "#advance" do
+  describe "#projection" do
     let(:customer) { double }
     let(:rate) { double }
 
@@ -352,8 +331,6 @@ RSpec.describe Estimator do
       allow(subject).to receive(:customers).and_return([customer])
       allow(customer).to receive(:revenue).and_return(100)
       allow(customer).to receive(:rate).and_return(rate)
-      allow(rate).to receive(:min).and_return(80)
-      allow(rate).to receive(:max).and_return(90)
     end
 
     [...]
@@ -367,7 +344,7 @@ end
 RSpec.describe Estimator do
   subject { Estimator.new }
 
-  describe "#advance" do
+  describe "#projection" do
     let(:customer) { double }
     let(:rate) { double }
 
@@ -379,8 +356,31 @@ RSpec.describe Estimator do
       allow(rate).to receive(:max).and_return(90)
     end
 
-    it "should return the sum of the estimated min and max advances" do
-      expect(subject.advance).to eq [
+    [...]
+  end
+end
+```
+
+---
+
+``` ruby
+RSpec.describe Estimator do
+  subject { Estimator.new }
+
+  describe "#projection" do
+    let(:customer) { double }
+    let(:rate) { double }
+
+    before do
+      allow(subject).to receive(:customers).and_return([customer])
+      allow(customer).to receive(:revenue).and_return(100)
+      allow(customer).to receive(:rate).and_return(rate)
+      allow(rate).to receive(:min).and_return(80)
+      allow(rate).to receive(:max).and_return(90)
+    end
+
+    it "should return the sum of the estimated min and max projections" do
+      expect(subject.projection).to eq [
         customer.revenue * customer.rate.min,
         customer.revenue * customer.rate.max
       ]
@@ -395,7 +395,7 @@ end
 class Estimator < ActiveRecord::Base
   has_many :customers
 
-  def advance
+  def projection
     customers.inject([0,0]) do |(min, max), customer|
       min += customer.revenue * customer.rate.min
       max += customer.revenue * customer.rate.max
@@ -440,7 +440,7 @@ Your tools and practices should encourage you to do the right thing at each step
 RSpec.describe Estimator do
   subject { Estimator.new }
 
-  describe "#advance" do
+  describe "#projection" do
     let(:customer) { double }
     let(:rate) { double }
 
@@ -452,8 +452,8 @@ RSpec.describe Estimator do
       allow(rate).to receive(:max).and_return(90)
     end
 
-    it "should return the sum of the estimated min and max advances" do
-      expect(subject.advance).to eq [
+    it "should return the sum of the estimated min and max projections" do
+      expect(subject.projection).to eq [
         customer.revenue * customer.rate.min,
         customer.revenue * customer.rate.max
       ]
@@ -468,7 +468,7 @@ end
 class Estimator < ActiveRecord::Base
   has_many :customers
 
-  def advance
+  def projection
     customers.inject([0,0]) do |(min, max), customer|
       min += customer.revenue * customer.rate.min
       max += customer.revenue * customer.rate.max
@@ -488,7 +488,7 @@ end
 
 ---
 
-## #estimated_advance
+## #projection
 
 ---
 
@@ -505,8 +505,8 @@ RSpec.describe Customer do
     allow(rate).to receive(:max).and_return(max)
   end
 
-  it "should return the min and max advance" do
-    expect(subject.estimated_advance).to eq [
+  it "should return the min and max projection" do
+    expect(subject.projection).to eq [
       subject.revenue * rate.min,
       subject.revenue * rate.max
     ]
@@ -522,7 +522,7 @@ class Customer < ActiveRecord::Base
   belongs_to :rate
   belongs_to :estimator
 
-  def estimated_advance
+  def projection
     [
       revenue * rate.min,
       revenue * rate.max
@@ -541,7 +541,7 @@ end
 RSpec.describe Estimator do
   subject { Estimator.new }
 
-  describe "#advance" do
+  describe "#projection" do
     let(:customer) { double }
     let(:rate) { double }
 
@@ -553,8 +553,8 @@ RSpec.describe Estimator do
       allow(rate).to receive(:max).and_return(90)
     end
 
-    it "should return the sum of the estimated min and max advances" do
-      expect(subject.advance).to eq [
+    it "should return the sum of the estimated min and max projections" do
+      expect(subject.projection).to eq [
         customer.revenue * customer.rate.min,
         customer.revenue * customer.rate.max
       ]
@@ -569,20 +569,20 @@ end
 RSpec.describe Estimator do
   subject { Estimator.new }
 
-  describe "#advance" do
+  describe "#projection" do
     let(:customer) { double }
     let(:rate) { double }
-    let(:estimated_advance) { [80,90] }
+    let(:projection) { [80,90] }
 
     before do
       allow(subject).to receive(:customers).and_return([customer])
-      allow(customer).to receive(:estimated_advance).and_return(estimated_advance)
+      allow(customer).to receive(:projection).and_return(projection)
     end
 
-    it "should return the sum of the estimated min and max advances" do
-      expect(subject.advance).to eq [
-        estimated_advance.min,
-        estimated_advance.max
+    it "should return the sum of the estimated min and max projections" do
+      expect(subject.projection).to eq [
+        projection.min,
+        projection.max
       ]
     end
   end
@@ -595,10 +595,10 @@ end
 class Estimator < ActiveRecord::Base
   has_many :customers
 
-  def advance
+  def projection
     customers.inject([0,0]) do |(min, max), customer|
-      min += customer.estimated_advance.min
-      max += customer.estimated_advance.min
+      min += customer.projection.min
+      max += customer.projection.min
       [min, max]
     end
   end
@@ -620,7 +620,7 @@ Finished in 0.01977 seconds (files took 0.39439 seconds to load)
 RSpec.describe Customer do
   subject { Customer.new }
   
-  describe "#estimated_advance" do
+  describe "#projection" do
 	let(:rate) { double }
 	
   	before do
@@ -629,8 +629,8 @@ RSpec.describe Customer do
   	  allow(rate).to receive(:max).and_return(max)
   	end
   	
-  	it "should return the min and max advance" do
-  	  expect(subject.estimated_advance).to eq [
+  	it "should return the min and max projection" do
+  	  expect(subject.projection).to eq [
   	    customer.revenue * rate.min,
   	    customer.revenue * rate.max
   	  ]
@@ -722,8 +722,8 @@ RSpec.describe Customer do
     allow(rate).to receive(:max).and_return(max)
   end
 
-  it "should return the min and max advance" do
-    expect(subject.estimated_advance).to eq [
+  it "should return the min and max projection" do
+    expect(subject.projection).to eq [
       subject.revenue * rate.min,
       subject.revenue * rate.max
     ]
@@ -738,7 +738,7 @@ RSpec.describe Customer do
   subject { Customer.new(revenue: revenue) }
   let(:revenue) { 100 }
 
-  describe "#estimated_advance" do
+  describe "#projection" do
     let(:rate) { double }
 
     before do
@@ -747,7 +747,7 @@ RSpec.describe Customer do
 
   	it "should send the * message to rate" do
   	  expect(rate).to receive(:*).with(revenue)
-  	  subject.estimated_advance
+  	  subject.projection
   	end
   end
 end
@@ -760,7 +760,7 @@ class Customer < ActiveRecord::Base
   belongs_to :rate
   belongs_to :estimator
   
-  def estimated_advance
+  def projection
   	rate * revenue
   end
 end
@@ -776,10 +776,10 @@ end
 class Estimator < ActiveRecord::Base
   has_many :customers
 
-  def advance
+  def projection
     customers.inject([0,0]) do |(min, max), customer|
-      min += customer.estimated_advance[0]
-      max += customer.estimated_advance[1]
+      min += customer.projection[0]
+      max += customer.projection[1]
       [min, max]
     end
   end
@@ -800,9 +800,9 @@ end
 class Estimator < ActiveRecord::Base
   has_many :customers
 
-  def advance
+  def projection
     customers.inject([0,0]) do |sum, customer|
-      sum + customer.estimated_advance
+      sum + customer.projection
     end
   end
 end
@@ -868,9 +868,9 @@ MinMax.new(1, 10) + MinMax.new(2, 10)
 class Estimator < ActiveRecord::Base
   has_many :customers
 
-  def advance
+  def projection
     customers.inject(MinMax.zero) do |minmax, customer|
-      minmax + customer.estimated_advance
+      minmax + customer.projection
     end
   end
 end
@@ -897,9 +897,9 @@ Finished in 0.0188 seconds (files took 0.40418 seconds to load)
 class Estimator < ActiveRecord::Base
   has_many :customers
 
-  def advance
+  def projection
     customers.inject(MinMax.zero) do |minmax, customer|
-      minmax + customer.estimated_advance
+      minmax + customer.projection
     end
   end
 end
@@ -912,7 +912,7 @@ class Customer < ActiveRecord::Base
   belongs_to :rate
   belongs_to :estimator
 
-  def estimated_advance
+  def projection
     rate * revenue
   end
 end
@@ -971,7 +971,7 @@ end
     35.4: flog total
      5.9: flog/method average
 
-    20.7: Estimator#advance                lib/estimator.rb:6
+    20.7: Estimator#projection                lib/estimator.rb:6
      4.1: Rate#min                         lib/rate.rb:4
 ```
 
@@ -986,7 +986,7 @@ end
      3.8: flog/method average
 
      9.2: MinMax#+                         lib/min_max.rb:8
-     7.5: Estimator#advance                lib/estimator.rb:7
+     7.5: Estimator#projection                lib/estimator.rb:7
      4.8: Rate#*                           lib/rate.rb:12
      4.4: main#none
      4.1: Rate#min                         lib/rate.rb:4

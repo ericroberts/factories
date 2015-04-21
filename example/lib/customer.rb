@@ -5,9 +5,6 @@ class Customer < ActiveRecord::Base
   belongs_to :estimator
 
   def estimated_advance
-    [
-      revenue * rate.min,
-      revenue * rate.max
-    ]
+    rate * revenue
   end
 end

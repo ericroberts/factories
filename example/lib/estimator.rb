@@ -5,8 +5,8 @@ class Estimator < ActiveRecord::Base
 
   def advance
     customers.inject([0,0]) do |(min, max), customer|
-      min += customer.revenue * customer.rate.min
-      max += customer.revenue * customer.rate.max
+      min += customer.estimated_advance.min
+      max += customer.estimated_advance.max
       [min, max]
     end
   end

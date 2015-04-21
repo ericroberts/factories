@@ -4,16 +4,16 @@ require "customer"
 require "rate"
 
 RSpec.describe Customer do
-  include FactoryGirl::Syntax::Methods
-
-  subject         { build :estimator }
-  let(:customer)  { build :customer, rate: rate, revenue: revenue }
-  let(:rate)      { build :rate }
-  let(:revenue)   { 100 }
+  subject { build :estimator }
 
   describe "#advance" do
     it "should return the sum of the estimated min and max advances" do
-      expect(subject.advance).to eq [revenue * rate.min, revenue * rate.max]
+      customer = subject.customers.first
+
+      expect(subject.advance).to eq [
+        customer.revenue * customer.rate.min,
+        customer.revenue * customer.rate.max
+      ]
     end
   end
 end

@@ -2,21 +2,19 @@ require "spec_helper"
 require "customer"
 
 RSpec.describe Customer do
-  subject { Customer.new(revenue: 100) }
-  let(:rate) { double }
-  let(:min) { 80 }
-  let(:max) { 90 }
+  subject { Customer.new(revenue: revenue) }
+  let(:revenue) { 100 }
 
-  before do
-    allow(subject).to receive(:rate).and_return(rate)
-    allow(rate).to receive(:min).and_return(min)
-    allow(rate).to receive(:max).and_return(max)
-  end
+  describe "#projection" do
+    let(:rate) { double }
 
-  it "should return the min and max projection" do
-    expect(subject.projection).to eq [
-      subject.revenue * rate.min,
-      subject.revenue * rate.max
-    ]
+    before do
+      allow(subject).to receive(:rate).and_return(rate)
+    end
+  
+  	it "should send the * message to rate" do
+  	  expect(rate).to receive(:*).with(revenue)
+  	  subject.projection
+  	end
   end
 end

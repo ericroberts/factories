@@ -5,9 +5,6 @@ class Customer < ActiveRecord::Base
   belongs_to :estimator
 
   def projection
-    [
-      revenue * rate.min,
-      revenue * rate.max
-    ]
+    rate * revenue
   end
 end

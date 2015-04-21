@@ -8,4 +8,11 @@ class Rate < ActiveRecord::Base
   def max
     self[:max] / 100.to_f
   end
+
+  def * other
+    [
+      min * other,
+      max * other
+    ]
+  end
 end

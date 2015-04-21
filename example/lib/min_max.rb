@@ -6,7 +6,9 @@ class MinMax
   end
 
   def + other
-    self.class.new(min + other.min, max + other.max)
+    new_min = min + other.min
+    new_max = max + other.max
+    self.class.new(new_min, new_max)
   end
 
   def self.zero

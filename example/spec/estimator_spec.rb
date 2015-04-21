@@ -7,11 +7,11 @@ RSpec.describe Estimator do
   subject { customer.estimator }
   let(:customer) { create :customer }
 
-  describe "#advance" do
-    it "should return the sum of the estimated min and max advances" do
-      advance = subject.advance
-      expect(advance.min).to eq customer.revenue * customer.rate.min
-      expect(advance.max).to eq customer.revenue * customer.rate.max
+  describe "#projection" do
+    it "should return the sum of the estimated min and max projections" do
+      projection = subject.projection
+      expect(projection.min).to eq customer.revenue * customer.rate.min
+      expect(projection.max).to eq customer.revenue * customer.rate.max
     end
   end
 end

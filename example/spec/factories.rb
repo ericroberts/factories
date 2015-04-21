@@ -1,6 +1,3 @@
-require "factory_girl"
-require "ostruct"
-
 FactoryGirl.define do
   factory :estimator do
   end

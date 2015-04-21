@@ -114,8 +114,6 @@ VALUES (?, ?, ?, ?, ?)  [
 
 ---
 
----
-
 ### Saving _0.1 seconds_ per test on 1200 tests saves you a total of _2 minutes_ every time the tests run.
 
 ---

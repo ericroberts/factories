@@ -952,7 +952,9 @@ class MinMax
   end
 
   def + other
-    self.class.new(min + other.min, max + other.max)
+    new_min = min + other.min
+    new_max = max + other.max
+    self.class.new(new_min, new_max)
   end
 
   def self.zero
@@ -982,10 +984,10 @@ end
 ---
 
 ``` bash
-    47.0: flog total
-     3.9: flog/method average
+    46.1: flog total
+     3.8: flog/method average
 
-    10.2: MinMax#+                         lib/min_max.rb:8
+     9.2: MinMax#+                         lib/min_max.rb:8
      7.5: Estimator#advance                lib/estimator.rb:7
      4.8: Rate#*                           lib/rate.rb:12
      4.4: main#none

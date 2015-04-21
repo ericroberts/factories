@@ -1,13 +1,12 @@
 require_relative "../config/environment"
+require "min_max"
 
 class Estimator < ActiveRecord::Base
   has_many :customers
 
   def projection
-    customers.inject([0,0]) do |(min, max), customer|
-      min += customer.projection.min
-      max += customer.projection.max
-      [min, max]
+    customers.inject(MinMax.zero) do |minmax, customer|
+      minmax + customer.projection
     end
   end
 end

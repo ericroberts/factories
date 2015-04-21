@@ -1,5 +1,13 @@
+require_relative "config/environment"
+require "active_support/all"
 require "rspec/core/rake_task"
 
 RSpec::Core::RakeTask.new(:spec)
 
+desc "Run the tests"
 task :default => :spec
+
+desc "Run migrations"
+task :migrate do
+  ActiveRecord::Migrator.migrate('db/migrate', ENV["VERSION"] ? ENV["VERSION"].to_i : nil)
+end

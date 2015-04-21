@@ -1,17 +1,18 @@
 require "factory_girl"
+require "ostruct"
 
 FactoryGirl.define do
-  factory :rate do
-    min 80
-    max 90
+  factory :estimator do
+    customers { [create(:customer)] }
   end
 
   factory :customer do
+    association :rate
     revenue 100
-    rate { build(:rate) }
   end
 
-  factory :estimator do
-    customers { [build(:customer)] }
+  factory :rate do
+    min 80
+    max 90
   end
 end

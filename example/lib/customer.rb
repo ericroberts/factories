@@ -1,3 +1,5 @@
-class Customer
-  attr_accessor :revenue, :rate
+require_relative "../config/environment"
+
+class Customer < ActiveRecord::Base
+  belongs_to :rate
 end

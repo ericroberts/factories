@@ -3,7 +3,7 @@ require_relative "../config/environment"
 class Estimator < ActiveRecord::Base
   has_many :customers
 
-  def advance
+  def projection
     customers.inject([0,0]) do |(min, max), customer|
       min += customer.revenue * customer.rate.min
       max += customer.revenue * customer.rate.max

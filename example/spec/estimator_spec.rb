@@ -3,13 +3,12 @@ require "estimator"
 require "customer"
 require "rate"
 
-RSpec.describe Customer do
-  subject { build :estimator }
+RSpec.describe Estimator do
+  subject { customer.estimator }
+  let(:customer) { create :customer }
 
   describe "#advance" do
     it "should return the sum of the estimated min and max advances" do
-      customer = subject.customers.first
-
       expect(subject.advance).to eq [
         customer.revenue * customer.rate.min,
         customer.revenue * customer.rate.max

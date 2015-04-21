@@ -1,7 +1,7 @@
 require_relative "../config/environment"
 
-class Estimator
-  attr_accessor :customers
+class Estimator < ActiveRecord::Base
+  has_many :customers
 
   def advance
     customers.inject([0,0]) do |(min, max), customer|

@@ -3,11 +3,11 @@ require "ostruct"
 
 FactoryGirl.define do
   factory :estimator do
-    customers { [create(:customer)] }
   end
 
   factory :customer do
     association :rate
+    association :estimator
     revenue 100
   end
 

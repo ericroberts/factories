@@ -9,10 +9,9 @@ RSpec.describe Estimator do
 
   describe "#advance" do
     it "should return the sum of the estimated min and max advances" do
-      expect(subject.advance).to eq [
-        customer.revenue * customer.rate.min,
-        customer.revenue * customer.rate.max
-      ]
+      advance = subject.advance
+      expect(advance.min).to eq customer.revenue * customer.rate.min
+      expect(advance.max).to eq customer.revenue * customer.rate.max
     end
   end
 end

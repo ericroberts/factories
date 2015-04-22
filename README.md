@@ -17,3 +17,13 @@ There are four of them:
 
 Questions or comments can be opened as GitHub issues or you can tweet at [@eroberts](https://twitter.com/eroberts).
 I will do my best to respond to any comments as soon as possible.
+
+## Recommended Resources
+
+These are a few of the resources which have influenced my thoughts about testing:
+
+- [Practical Object-Oriented Design in Ruby](http://www.poodr.com/)
+- [The Magic Tricks of Testing](https://www.youtube.com/watch?v=URSWYvyc42M)
+- [Rails 4 Test Prescriptions](https://pragprog.com/book/nrtest2/rails-4-test-prescriptions)
+- [Test Isolation Is About Avoiding Mocks](https://www.destroyallsoftware.com/blog/2014/test-isolation-is-about-avoiding-mocks)
+- [Making a Mockery of TDD](http://devblog.avdi.org/2011/09/06/making-a-mockery-of-tdd/)

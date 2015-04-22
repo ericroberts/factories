@@ -908,6 +908,18 @@ end
 ---
 
 ``` ruby
+class Estimator < ActiveRecord::Base
+  has_many :customers
+
+  def projection
+    customers.map(&:projection).inject(MinMax.zero, :+)
+  end
+end
+```
+
+---
+
+``` ruby
 class Customer < ActiveRecord::Base
   belongs_to :rate
   belongs_to :estimator

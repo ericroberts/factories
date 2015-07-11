@@ -5,7 +5,7 @@ This is a presentation which was given at [KW Ruby](http://kwruby.ca/) on April 
 The presentation PDF can be found here ([presentation.pdf](presentation.pdf)),
 or on [SpeakerDeck](https://speakerdeck.com/ericroberts/what-factories-are-hiding-from-you).
 It was written in Markdown and presented using Deckset.
-The original Markdown file can be found in [presentation.md](presentation.md).
+The original Markdown file can be found in [factories.md](factories.md).
 
 The refactorings that occur in the presentation can all be found as pull requests.
 There are four of them:

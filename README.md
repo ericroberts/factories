@@ -2,7 +2,7 @@
 
 This is a presentation which was given at [KW Ruby](http://kwruby.ca/) on April 21st, 2015.
 
-The presentation PDF can be found here ([presentation.pdf](presentation.pdf)),
+The presentation PDF can be found here ([factories.pdf](factories.pdf)),
 or on [SpeakerDeck](https://speakerdeck.com/ericroberts/what-factories-are-hiding-from-you).
 It was written in Markdown and presented using Deckset.
 The original Markdown file can be found in [factories.md](factories.md).
